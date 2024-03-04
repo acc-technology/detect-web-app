@@ -1,19 +1,9 @@
-import { GaodeMap, PointLayer, Scene } from '@antv/l7';
+import { GaodeMap, Scene } from '@antv/l7';
 import { Card, Col, Descriptions, Image, Row, Skeleton, Space } from 'antd';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetImageQuery } from '../apis';
-
-const colorMap: Record<string, string> = {
-  没有错误: '#52c41a',
-  端部盲道缺失: '#f5222d',
-  端部盲道错误: '#fa541c',
-  交叉处盲道错误: '#fa8c16',
-  柱状物占用: '#faad14',
-  机动车占用: '#fadb14',
-  非机动车占用: '#722ed1',
-  窨井盖占用: '#eb2f96',
-};
+import { getPointLayer } from '../utils/map';
 
 const DetectPage = () => {
   const { imageId = '' } = useParams();
@@ -21,23 +11,18 @@ const DetectPage = () => {
   const { data } = useGetImageQuery({ id: +imageId || 0 });
 
   useEffect(() => {
-    if (data && data.longitude && data.latitude) {
+    if (data) {
       const scene = new Scene({
         id: 'map',
         map: new GaodeMap({
-          center: [data.longitude, data.latitude],
-          zoom: 15,
+          center: [120.2052342, 30.2489634],
+          zoom: 10,
           token: import.meta.env.VITE_MAP_TOKEN,
         }),
       });
-      const pointLayer = new PointLayer({})
-        .source([data], {
-          parser: { type: 'json', x: 'longitude', y: 'latitude' },
-        })
-        .shape('simple')
-        .size(4)
-        .color('error_types', (value) => colorMap[value[0] ?? '没有错误']);
-      scene.addLayer(pointLayer);
+      scene.on('loaded', async () =>
+        scene.addLayer(await getPointLayer([data])),
+      );
       return () => scene.destroy();
     }
   }, [data]);
