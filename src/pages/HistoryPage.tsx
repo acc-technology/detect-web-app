@@ -17,7 +17,11 @@ const columns: TableProps['columns'] = [
     render: (value) => value.toFixed(5),
   },
   { title: '纬度', dataIndex: 'latitude', render: (value) => value.toFixed(5) },
-  { title: '问题类型', dataIndex: 'error_types' },
+  {
+    title: '问题类型',
+    dataIndex: 'error_types',
+    render: (value) => value.join('，'),
+  },
   {
     title: '操作',
     render: (_, record) => (

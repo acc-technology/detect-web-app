@@ -17,7 +17,7 @@ const UploadPage = () => {
     <Space className="w-full" direction="vertical">
       <Alert
         message="注意事项"
-        description="请检查您的图片，已确保其中包含盲道图像"
+        description="请检查您的图片，上传无障碍设施图像（允许jpg、png格式）"
         type="info"
         showIcon
       />

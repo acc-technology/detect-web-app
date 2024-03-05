@@ -71,7 +71,7 @@ const DetectPage = () => {
                 { label: '图片编号', children: data.id },
                 { label: '经度', children: data.longitude.toFixed(5) },
                 { label: '纬度', children: data.latitude.toFixed(5) },
-                { label: '问题类型', children: data.error_types },
+                { label: '问题类型', children: data.error_types.join('，') },
               ]}
             />
             <div id="map" className="relative h-96" />
