@@ -23,6 +23,7 @@ const UploadPage = () => {
       />
       <Dragger
         accept="image/*"
+        listType="picture"
         maxCount={1}
         beforeUpload={() => false}
         onChange={({ fileList }) => setImage(fileList[0]?.originFileObj)}

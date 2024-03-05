@@ -22,21 +22,36 @@ const PageLayout = () => {
 
   return (
     <Layout className="h-screen">
-      <Header className="flex items-center">
-        <Title className="mb-0 text-white" level={4}>
-          识别系统
-        </Title>
-      </Header>
-      <Layout>
-        <Sider>
-          <Menu
-            theme="dark"
-            items={items}
-            selectedKeys={[pathname.split('/')[1]]}
-            onSelect={({ selectedKeys }) => navigate(`/${selectedKeys[0]}`)}
-          />
-        </Sider>
-        <Content className="overflow-auto px-8 py-4">{useOutlet()}</Content>
+      <Sider className="overflow-auto py-4" width={250}>
+        <div className="flex h-full flex-col justify-between">
+          <div className="flex flex-col items-center gap-4">
+            <img className="w-2/3" src="/logo.png" />
+            <Menu
+              className="w-full"
+              theme="dark"
+              items={items}
+              selectedKeys={[pathname.split('/')[1]]}
+              onSelect={({ selectedKeys }) => navigate(`/${selectedKeys[0]}`)}
+            />
+          </div>
+          <div className="m-4 rounded-xl bg-[#8877ba] p-4 text-white">
+            <div className="text-xl">About us</div>
+            <div className="my-2 text-xs">
+              这是一款全流程的智能化无障碍环境监测系统，开发团队根据无障碍设施问题呈现形式上的先验性和正确模式的规范性，在无障碍设施问题监测中引入图像识别、深度学习、地理信息技术、生成式人工智能等技术，可以高效应对海量无障碍图像数据的识别与分析，为无障碍环境体系化改造策略和完善的无障碍物质环境提供技术支持。
+            </div>
+            <img className="w-1/2" src="/accessibility.png" />
+          </div>
+        </div>
+      </Sider>
+      <Layout className="py-2 pr-2">
+        <Header className="flex items-center rounded-t-xl">
+          <Title className="mb-0 text-[#514390]" level={4}>
+            无障碍环境智能监测系统
+          </Title>
+        </Header>
+        <Content className="overflow-auto rounded-b-xl bg-white px-8 py-4">
+          {useOutlet()}
+        </Content>
       </Layout>
     </Layout>
   );
